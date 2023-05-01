@@ -1,4 +1,4 @@
-export default function Home(): JSX.Element {
+export const Home = () : JSX.Element => {
     return (
         <div></div>
     )
