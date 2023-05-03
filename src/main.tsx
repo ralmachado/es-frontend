@@ -8,6 +8,7 @@ import Home from './routes/Home.tsx'
 import Login from './routes/Login.tsx'
 import './index.css'
 import QRead from './routes/QRead.tsx'
+import PrescriptionPage from './routes/PrescriptionPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/qread',
     element: <QRead />
+  }, 
+  {
+    path: '/prescription',
+    element: <PrescriptionPage/>
   }
 ])
 

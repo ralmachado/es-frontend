@@ -1,6 +1,4 @@
-import React from 'react'
-
-const Prescription = () => {
+const Alternative = (): JSX.Element => {
    return (
         <div className="max-w-screen-xl mx-auto px-4 md:px-8">
             <div className="max-w-lg">
@@ -40,4 +38,4 @@ const Prescription = () => {
     )
 }
 
-export default Prescription
+export default Alternative
