@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import { Home } from './routes/Home.tsx'
 import { Login } from './routes/Login.tsx'
+import Payment from './routes/Payment.tsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/payment',
+    element: <Payment />
   }
 ])
 
