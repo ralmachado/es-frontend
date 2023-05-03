@@ -1,4 +1,4 @@
-export const Login = () : JSX.Element => {
+const Login = () : JSX.Element => {
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
             <div className="max-w-sm w-full text-gray-600">
@@ -48,3 +48,5 @@ export const Login = () : JSX.Element => {
         </main>
     )
 }
+
+export default Login
