@@ -1,16 +1,30 @@
-import Prescription from '../components/Prescription'
-import Alternative from '../components/Alternative'
 import { useState } from 'react'
+import Drug from '../models/Drug';
+import DrugRow from '../components/PrescriptionComponent';
 
 const PrescriptionPage: React.FC = () => {
     const [wantsAlternative, setAlternative] = useState<boolean>(false)
     const changeAlternative = (wantsAlternative: boolean): void => {
         setAlternative(wantsAlternative);
     }
+    const drug: Drug = {name:"lmao", price: 20, brand: true}
     return (
     <div>
-        <Prescription wantsAlternative={wantsAlternative} changeAlternative={changeAlternative} />
-        { wantsAlternative ? <Alternative/> : null}
+        <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
+            <table className="w-auto table-auto text-sm text-left">
+                <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                    <tr>
+                        <th className="py-3 px-6">Name</th>
+                        <th className="py-3 px-6">Price</th>
+                        <th className="py-3 px-6">Branding</th>
+                        <th className="py-3 px-6">Alternative</th>
+                    </tr>
+                </thead>
+                <tbody className="text-gray-600 divide-y">
+                    <DrugRow wantsAlternative={wantsAlternative} changeAlternative={changeAlternative} drug={drug} />
+                </tbody>
+            </table>
+        </div>
     </div>
     )
 }
