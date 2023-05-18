@@ -3,13 +3,11 @@ import Drug from "../models/Drug"
 import Alternatives from "./Alternatives";
 import Alternative from "../models/Alternative";
 
-interface IPrescriptionProps{
-    wantsAlternative: boolean, 
-    changeAlternative: (arg: boolean) => void;
+interface IDrugRowProps{
     drug: Drug;
 }
 
-const DrugRow: React.FC<IPrescriptionProps> = ({wantsAlternative, drug}) => {
+const DrugRow: React.FC<IDrugRowProps> = ({drug}) => {
     const [drug_, setDrug] = useState<Drug>(drug)
     const changeToAlternative = (drug__: Alternative): void => {
         const changedDrug: Drug = {name: drug__.name, price: drug__.price, brand: drug__.brand, alternatives: []}
