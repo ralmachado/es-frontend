@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import Drug from '../models/Drug';
-import DrugRow from '../components/PrescriptionComponent';
+import DrugRow from '../components/DrugRow';
 
 const PrescriptionPage: React.FC = () => {
     const [wantsAlternative, setAlternative] = useState<boolean>(false)
     const changeAlternative = (wantsAlternative: boolean): void => {
         setAlternative(wantsAlternative);
     }
-    const drug: Drug = {name:"lmao", price: 20, brand: true}
+    const drug: Drug = {name:"lmao", price: 20, brand: true, 
+        alternatives: [{name: "lmao1", price: 10, brand:false}, {name: "lmao2", price:15, brand:false}]}
     return (
     <div>
         <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
@@ -17,7 +18,7 @@ const PrescriptionPage: React.FC = () => {
                         <th className="py-3 px-6">Name</th>
                         <th className="py-3 px-6">Price</th>
                         <th className="py-3 px-6">Branding</th>
-                        <th className="py-3 px-6">Alternative</th>
+                        <th className="py-3 px-6">Alternatives</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-600 divide-y">
