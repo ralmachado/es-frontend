@@ -10,7 +10,11 @@ interface IDrugRowProps{
 const DrugRow: React.FC<IDrugRowProps> = ({drug}) => {
     const [drug_, setDrug] = useState<Drug>(drug)
     const changeToAlternative = (drug__: Alternative): void => {
-        const changedDrug: Drug = {name: drug__.name, price: drug__.price, brand: drug__.brand, alternatives: []}
+        const changedDrug: Drug = {name: drug__.name, price: drug__.price, brand: drug__.brand, alternatives: [drug_]}
+        drug_.alternatives.forEach((alternative: Alternative) => {
+            if (alternative.name !== changedDrug.name)
+                changedDrug.alternatives.push(alternative)
+        });
         setDrug(changedDrug);
     }
     return (
