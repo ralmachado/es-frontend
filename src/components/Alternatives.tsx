@@ -25,7 +25,7 @@ const Alternatives: React.FC<IAlternativesProps> = ({options, drug, changeDrug})
     <div>
       <select id="dropdown" onChange={handleOptionChange}>
         <option value={undefined}>Select an option</option>
-        {options.map((option) => (
+        {options.map((option: Alternative) => (
           <option key={option.name} value={options.indexOf(option)}>{option.name}</option>
         ))}
       </select>
