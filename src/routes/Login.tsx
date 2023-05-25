@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom"
+
 const Login = () : JSX.Element => {
+    const navigate = useNavigate();
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
             <div className="max-w-sm w-full text-gray-600">
@@ -37,7 +40,7 @@ const Login = () : JSX.Element => {
                     </div>
                     <button
                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
-                    >
+                    onClick={() => navigate("/qread")}>
                         Sign in
                     </button>
                     {/* <div className="text-center">
