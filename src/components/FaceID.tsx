@@ -43,7 +43,7 @@ const FaceID = () => {
 			{image ? (
 				<img src={image} alt="webcam" />
 				) : (
-				<WebCam height={600} width={600} ref={webcamRef} />
+				<WebCam height={600} width={600} ref={webcamRef} screenshotFormat={"image/png"}/>
 			)}
 			{error}
 			<button
