@@ -11,7 +11,7 @@ const OrderComponent: React.FC<IOrderProps> = ({order}) => {
     const api = apiInstance();
     const confirmOrder = async () => {
         try{
-            const response = await api.post("/confirm-order", order.order_id);
+            const response = await api.post("/confirm-order", {"order_id": order.order_id});
             if (response.status === 200)
                 window.location.reload();
         } catch (err) {
