@@ -12,7 +12,7 @@ const Payment = () => {
         <Menu/>
         { 
             !isFaceID && 
-            <div>
+            <div className="flex flex-col items-center h-screen justify-center">
                     <label className="text-gray-600">
                     Amount
                 </label>
