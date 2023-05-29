@@ -40,7 +40,7 @@ const Register = () : JSX.Element => {
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
                     <div className="mt-5 space-y-2">
-                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
+                        <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Register a new account</h3>
                     </div>
                 </div>
                 <form
