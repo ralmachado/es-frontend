@@ -11,7 +11,6 @@ export const Home = () : JSX.Element => {
                 </svg>
                 Read QR code
             </button>
-            
         </div>
     )
 }

@@ -1,23 +1,47 @@
 import Drug from '../models/Drug';
 import DrugRow from '../components/DrugRow';
 import Menu from '../components/Menu';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { apiInstance } from '../services/apiService';
+import { useEffect, useState } from 'react';
+import { AxiosError } from 'axios';
 
 const PrescriptionPage: React.FC = () => {
-    const drugs: Drug[] = [ 
-        {name:"lmao", price: 20, brand: true, 
-            alternatives: [{name: "lmao1", price: 10, brand:false}, {name: "lmao2", price:15, brand:false}]}
-        , {name:"lmaotest", price: 20, brand: true, 
-            alternatives: [{name: "lmao3", price: 10, brand:false}, {name: "lmao4", price:15, brand:false}]}
-        , {name:"lmaotest2", price: 20, brand: true, 
-            alternatives: [{name: "lmao5", price: 10, brand:false}, {name: "lmao6", price:15, brand:false}]}
-        , {name:"lmaotest3", price: 20, brand: true, 
-            alternatives: [{name: "lmao8", price: 10, brand:false}, {name: "lmao7", price:15, brand:false}]}
-    ];
-    const navigate = useNavigate();
+    const [drugs, setDrugs] = useState<Drug[]>([])
+    const [error, setError] = useState("");
+    const api = apiInstance();
+    const getDrug = async () => {
+        const drugs1: Drug[] = []
+        try{
+            const response = await api.get("/drugs");
+            console.log("Response: ", response);
+            response.data.inventory.forEach((drug: Drug) => {
+                drugs1.push(drug);
+            })
+            setDrugs(drugs1)
+        } catch (err) {
+            if (err && err instanceof AxiosError) setError(err.response?.data.message);
+            else if (err && err instanceof Error) setError(err.message);
+            console.log("Error: ", err);
+        }
+    };
+    useEffect(() => {
+        getDrug();
+    }, [])
+
+    const calculatePrice = ((): number => {
+        let sum = 0 
+        drugs.forEach((drug: Drug) => {
+            sum += drug.price;
+        })
+        return sum;
+    });
+
+    const sum = calculatePrice();
     return (
     <div>
         <Menu/>
+        <div>{error}</div>
         <div className="flex flex-col mt-24 rounded-lg items-center">
             <h3 className="text-gray-800 text-2xl font-bold sm:text-3x mb-11">Prescription</h3>
             <table className="w-auto table-auto text-sm text-left">
@@ -32,13 +56,13 @@ const PrescriptionPage: React.FC = () => {
                 <tbody className="text-gray-600 divide-y">
                     {
                         drugs.map((drug: Drug) =>(
-                            <DrugRow drug={drug} />
-                        ))
+                            <DrugRow drug={drug} />),
+                        )
                     }
                 </tbody>
             </table>
-        <button className="px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 w-64 mt-10"
-			onClick={() => navigate("/prescription")}>Advance</button>
+        <Link className="px-4 py-2 text-white text-center font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 w-64 mt-10"
+			to={`/payment/${sum}`}>Advance</Link>
         </div>
 		
     </div>

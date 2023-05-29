@@ -10,11 +10,17 @@ import './index.css'
 import QRead from './routes/QRead.tsx'
 import PrescriptionPage from './routes/PrescriptionPage.tsx'
 import Payment from './routes/Payment.tsx'
+import {AuthProvider, RequireAuth} from "react-auth-kit"
+import Register from './routes/Register.tsx'
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Home />,
+    path: "/",
+    element: <Home/>
+  },
+  {
+    path: '/register',
+    element: <Register/>
   },
   {
     path: '/login',
@@ -22,20 +28,29 @@ const router = createBrowserRouter([
   },
   {
     path: '/qread',
-    element: <QRead />
+    element: <RequireAuth loginPath='/login'>
+      <QRead/>
+      </RequireAuth>
   }, 
   {
     path: '/prescription',
-    element: <PrescriptionPage/>
+    element: <RequireAuth loginPath='/login'><PrescriptionPage/></RequireAuth>
 
   },
-  {    path: '/payment',
-    element: <Payment />
+  {    
+    path: '/payment/:price',
+    element: <RequireAuth loginPath='/login'><Payment /></RequireAuth>
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider
+      authType={"cookie"}
+      authName={"token"}
+      cookieDomain={window.location.hostname}
+      cookieSecure={false}>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )

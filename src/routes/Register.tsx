@@ -1,31 +1,23 @@
 import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import axios, {AxiosError} from "axios"
-import { useEffect, useState } from "react"
-import { useIsAuthenticated, useSignIn } from "react-auth-kit"
+import { useState } from "react"
+import { useSignIn } from "react-auth-kit"
 
-const Login = () : JSX.Element => {
+const Register = () : JSX.Element => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
-    const signIn = useSignIn();
-    const isAuth = useIsAuthenticated();
 
-     
     const onSubmit = async (values: any) => {
         setError("");
         try {
+            
             const response = await axios.post(
-                "/api/token",
+                "/api/register",
                 values
             );
             console.log(response)
-            signIn({
-                token: response.data.access,
-                expiresIn: 3600,
-                tokenType: "Bearer",
-                authState: { username: values.username },
-            });
-            navigate("/qread");
+            navigate("/login");
         } catch (err) {
             if (err && err instanceof AxiosError) setError(err.response?.data.message);
             else if (err && err instanceof Error) setError(err.message);
@@ -41,17 +33,13 @@ const Login = () : JSX.Element => {
         },
         onSubmit,
     });
-    useEffect(() => {
-        if (isAuth()) navigate("/")
-    }, [])
+
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
-            <h1>{error}</h1>
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
-                   <div className="mt-5 space-y-2">
+                    <div className="mt-5 space-y-2">
                         <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
-                        <p className="">Don't have an account? <a href="javascript:void(0)" className="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
                     </div>
                 </div>
                 <form
@@ -99,7 +87,7 @@ const Login = () : JSX.Element => {
                     <button
                         className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                     >
-                        Sign in
+                       Register 
                     </button>
                 </form>
             </div>
@@ -107,4 +95,4 @@ const Login = () : JSX.Element => {
     )
 }
 
-export default Login
+export default Register
