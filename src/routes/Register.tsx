@@ -15,7 +15,6 @@ const Register = () : JSX.Element => {
                 "/api/register",
                 values
             );
-            console.log(response)
             navigate("/login");
         } catch (err) {
             if (err && err instanceof AxiosError) setError(err.response?.data.message);

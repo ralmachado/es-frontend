@@ -2,11 +2,23 @@ import Menu from "../components/Menu";
 import FaceID from "../components/FaceID";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { apiInstance } from '../services/apiService';
 
 const Payment = () => {
 	const [isFaceID, setFaceID] = useState(false);
     const price = useParams().price;
     const navigate = useNavigate();
+    const api = apiInstance();
+	const sendOrder = async () => {
+		try{
+            const response = await api.post("/save-order", price);
+			if (response.status === 200){
+				navigate("/orders")
+			}
+        } catch (err) {
+            console.log("Error: ", err);
+        }	
+	};
     return (
     <div className="p-5">
         <Menu/>
@@ -34,10 +46,10 @@ const Payment = () => {
                     </div>
                 </div>
                 <div className="space-x-7 px-0 py-5">
-                    <button onClick={() => {navigate("/orders")}} className="px-5 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
+                    <button onClick={sendOrder} className="px-5 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
                         Cash
                     </button>
-                    <button onClick={() => {navigate("/orders")}} className="px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
+                    <button onClick={sendOrder} className="px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
                         Credit Card
                     </button>
                     <button onClick={() => {setFaceID(true)}} className="px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
@@ -46,7 +58,7 @@ const Payment = () => {
                 </div>
             </div>
         }   
-        {isFaceID && <FaceID/>}
+        {isFaceID && <FaceID price={price}/>}
 
     </div>
     )

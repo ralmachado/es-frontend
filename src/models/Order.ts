@@ -1,5 +1,5 @@
 export default interface Order{
-    id: number;
-    name: string;
-    status: string;
+    order_id: number;
+    timestamp: string;
+    order_status: string;
 }

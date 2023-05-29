@@ -17,7 +17,6 @@ const Login = () : JSX.Element => {
                 "/api/token",
                 loginValues
             );
-            console.log(response)
             signIn({
                 token: response.data.access,
                 expiresIn: 3600,

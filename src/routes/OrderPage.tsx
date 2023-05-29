@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react";
 import Menu from "../components/Menu"
 import OrderComponent from "../components/OrderComponent";
 import Order from "../models/Order";
+import { apiInstance } from '../services/apiService';
 
 const OrderPage = () => {
-    const orders: Order[] = [{id: 0, name: "lmao", status: "lmaolmao"}, {id: 1, name: "lmao2", status: "lmaolmao"},
-                                {id: 2, name: "lmao3", status: "lmaolmao"}]
+    const [orders, setOrders] = useState<Order[]>([]);
+    const api = apiInstance();
+    const getOrders = async () => {
+        const orders1: Order[] = []
+        try{
+            const response = await api.get("/orders");
+            response.data.result.forEach((order: Order) => {
+                orders1.push(order);
+            })
+            setOrders(orders1)
+        } catch (err) {
+            console.log("Error: ", err);
+        }
+    };
+    useEffect(() => {
+        getOrders();
+    }, [])
+    
     return (
         <div>  
             <Menu />

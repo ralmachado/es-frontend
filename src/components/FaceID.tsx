@@ -6,7 +6,11 @@ import WebCam from "react-webcam"
 import { apiInstance } from '../services/apiService';
 import { AxiosError } from 'axios';
 
-const FaceID = () => {
+interface IFaceIDProp{
+	price: string | undefined;
+}
+
+const FaceID: React.FC<IFaceIDProp> = ({price}) => {
 	const navigate = useNavigate();
 	const webcamRef = useRef<WebCam>(null);
     const [error, setError] = useState("");
@@ -25,14 +29,28 @@ const FaceID = () => {
     const sendPhoto = async (screenshot: any) => {
         try{
             const response = await api.post("/face-id", screenshot);
-			if (response.status === 200)
-				navigate("/orders")
+			if (response.status === 200){
+				sendOrder();	
+			}
         } catch (err) {
             if (err && err instanceof AxiosError) setError(err.response?.data.message);
             else if (err && err instanceof Error) setError(err.message);
             console.log("Error: ", err);
         }
     };
+
+	const sendOrder = async () => {
+		try{
+            const response = await api.post("/save-order", price);
+			if (response.status === 200){
+				navigate("/orders")
+			}
+        } catch (err) {
+            if (err && err instanceof AxiosError) setError(err.response?.data.message);
+            else if (err && err instanceof Error) setError(err.message);
+            console.log("Error: ", err);
+        }	
+	};
 
 
 
