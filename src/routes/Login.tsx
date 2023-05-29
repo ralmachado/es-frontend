@@ -10,7 +10,6 @@ const Login = () : JSX.Element => {
     const signIn = useSignIn();
     const isAuth = useIsAuthenticated();
 
-     
     const onSubmit = async (values: any) => {
         setError("");
         try {
@@ -51,7 +50,7 @@ const Login = () : JSX.Element => {
                 <div className="text-center">
                    <div className="mt-5 space-y-2">
                         <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
-                        <p className="">Don't have an account? <a href="javascript:void(0)" className="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
+                        <p className="">Don't have an account? <a href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
                     </div>
                 </div>
                 <form

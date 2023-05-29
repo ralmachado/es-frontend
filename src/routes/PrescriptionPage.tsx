@@ -1,7 +1,7 @@
 import Drug from '../models/Drug';
 import DrugRow from '../components/DrugRow';
 import Menu from '../components/Menu';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { apiInstance } from '../services/apiService';
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
