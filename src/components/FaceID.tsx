@@ -21,10 +21,12 @@ const FaceID = () => {
 		//@ts-ignore
 		sendPhoto({"image": screenshot.split(",")[1]});
 	}, [webcamRef]);
+
     const sendPhoto = async (screenshot: any) => {
         try{
             const response = await api.post("/face-id", screenshot);
-            console.log("Response: ", response);
+			if (response.status === 200)
+				navigate("/orders")
         } catch (err) {
             if (err && err instanceof AxiosError) setError(err.response?.data.message);
             else if (err && err instanceof Error) setError(err.message);

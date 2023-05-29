@@ -1,17 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import axios, {AxiosError} from "axios"
-import { useState } from "react"
-import { useSignIn } from "react-auth-kit"
+import { useEffect, useState } from "react"
+import { useIsAuthenticated } from "react-auth-kit"
 
 const Register = () : JSX.Element => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
-
+    const isAuth = useIsAuthenticated();
     const onSubmit = async (values: any) => {
         setError("");
         try {
-            
             const response = await axios.post(
                 "/api/register",
                 values
@@ -24,7 +23,9 @@ const Register = () : JSX.Element => {
             console.log("Error: ", err);
         }
     };
-
+    useEffect(() => {
+        if (isAuth()) navigate("/")
+    }, [])
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -36,6 +37,7 @@ const Register = () : JSX.Element => {
 
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
+            <h1>{error}</h1>
             <div className="max-w-sm w-full text-gray-600">
                 <div className="text-center">
                     <div className="mt-5 space-y-2">

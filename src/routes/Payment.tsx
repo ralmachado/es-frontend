@@ -1,11 +1,12 @@
 import Menu from "../components/Menu";
 import FaceID from "../components/FaceID";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Payment = () => {
 	const [isFaceID, setFaceID] = useState(false);
     const price = useParams().price;
+    const navigate = useNavigate();
     return (
     <div className="p-5">
         <Menu/>
@@ -33,10 +34,10 @@ const Payment = () => {
                     </div>
                 </div>
                 <div className="space-x-7 px-0 py-5">
-                    <button className="px-5 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
+                    <button onClick={() => {navigate("/orders")}} className="px-5 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
                         Cash
                     </button>
-                    <button className="px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
+                    <button onClick={() => {navigate("/orders")}} className="px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">
                         Credit Card
                     </button>
                     <button onClick={() => {setFaceID(true)}} className="px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-700 active:shadow-lg">

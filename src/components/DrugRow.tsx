@@ -5,9 +5,10 @@ import Alternative from "../models/Alternative";
 
 interface IDrugRowProps{
     drug: Drug;
+    change: CallableFunction;
 }
 
-const DrugRow: React.FC<IDrugRowProps> = ({drug}) => {
+const DrugRow: React.FC<IDrugRowProps> = ({drug, change}) => {
     const [drug_, setDrug] = useState<Drug>(drug)
     const changeToAlternative = (drug__: Alternative): void => {
         const changedDrug: Drug = {name: drug__.name, price: drug__.price, brand: drug__.brand, alternatives: [drug_]}
@@ -16,6 +17,7 @@ const DrugRow: React.FC<IDrugRowProps> = ({drug}) => {
                 changedDrug.alternatives.push(alternative)
         });
         setDrug(changedDrug);
+        change(drug_, changedDrug);
     }
     return (
     <tr className="mx-auto"> 

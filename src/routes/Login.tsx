@@ -10,19 +10,19 @@ const Login = () : JSX.Element => {
     const signIn = useSignIn();
     const isAuth = useIsAuthenticated();
 
-    const onSubmit = async (values: any) => {
+    const onSubmit = async (loginValues: any) => {
         setError("");
         try {
             const response = await axios.post(
                 "/api/token",
-                values
+                loginValues
             );
             console.log(response)
             signIn({
                 token: response.data.access,
                 expiresIn: 3600,
                 tokenType: "Bearer",
-                authState: { username: values.username },
+                authState: { username: loginValues.username },
             });
             navigate("/qread");
         } catch (err) {
@@ -35,7 +35,6 @@ const Login = () : JSX.Element => {
     const formik = useFormik({
         initialValues: {
             username: "",
-            email: "",
             password: "",
         },
         onSubmit,
@@ -64,19 +63,6 @@ const Login = () : JSX.Element => {
                         <input
                             name="username"
                             value={formik.values.username}
-                            onChange={formik.handleChange}
-                            required
-                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                        />
-                    </div>
-                    <div>
-                        <label className="font-medium">
-                            Email
-                        </label>
-                        <input
-                            name="email"
-                            type="email"
-                            value={formik.values.email}
                             onChange={formik.handleChange}
                             required
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"

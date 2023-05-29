@@ -1,7 +1,7 @@
 import Drug from '../models/Drug';
 import DrugRow from '../components/DrugRow';
 import Menu from '../components/Menu';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { apiInstance } from '../services/apiService';
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
@@ -10,11 +10,11 @@ const PrescriptionPage: React.FC = () => {
     const [drugs, setDrugs] = useState<Drug[]>([])
     const [error, setError] = useState("");
     const api = apiInstance();
+    const navigate = useNavigate();
     const getDrug = async () => {
         const drugs1: Drug[] = []
         try{
             const response = await api.get("/prescription");
-            console.log("Response: ", response);
             response.data.forEach((drug: Drug) => {
                 drugs1.push(drug);
             })
@@ -29,15 +29,18 @@ const PrescriptionPage: React.FC = () => {
         getDrug();
     }, [])
 
-    const calculatePrice = ((): number => {
+    const calculatePrice = (() => {
         let sum = 0 
         drugs.forEach((drug: Drug) => {
             sum += drug.price;
         })
-        return sum;
+        navigate(`/payment/${sum}`);
     });
 
-    const sum = calculatePrice();
+    const changeDrug = ((drug: Drug, newDrug: Drug) => {
+        drugs.splice(drugs.indexOf(drug), 1, newDrug)
+    })
+
     return (
     <div>
         <Menu/>
@@ -56,13 +59,13 @@ const PrescriptionPage: React.FC = () => {
                 <tbody className="text-gray-600 divide-y">
                     {
                         drugs.map((drug: Drug) =>(
-                            <DrugRow drug={drug} />),
+                            <DrugRow drug={drug} change={changeDrug} />),
                         )
                     }
                 </tbody>
             </table>
-        <Link className="px-4 py-2 text-white text-center font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 w-64 mt-10"
-			to={`/payment/${sum}`}>Advance</Link>
+        <button className="px-4 py-2 text-white text-center font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 w-64 mt-10"
+			onClick={() => {calculatePrice()}}>Advance</button>
         </div>
 		
     </div>

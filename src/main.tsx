@@ -12,6 +12,7 @@ import PrescriptionPage from './routes/PrescriptionPage.tsx'
 import Payment from './routes/Payment.tsx'
 import {AuthProvider, RequireAuth} from "react-auth-kit"
 import Register from './routes/Register.tsx'
+import OrderPage from './routes/OrderPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {    
     path: '/payment/:price',
     element: <RequireAuth loginPath='/login'><Payment /></RequireAuth>
+  },
+  {
+    path: '/orders',
+    element: <RequireAuth loginPath='/login'><OrderPage/></RequireAuth>
   }
 ])
 
