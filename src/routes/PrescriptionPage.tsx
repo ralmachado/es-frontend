@@ -13,9 +13,9 @@ const PrescriptionPage: React.FC = () => {
     const getDrug = async () => {
         const drugs1: Drug[] = []
         try{
-            const response = await api.get("/drugs");
+            const response = await api.get("/prescription");
             console.log("Response: ", response);
-            response.data.inventory.forEach((drug: Drug) => {
+            response.data.forEach((drug: Drug) => {
                 drugs1.push(drug);
             })
             setDrugs(drugs1)
