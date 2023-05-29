@@ -32,6 +32,9 @@
 - Added **Backstage Lane**
 
 ## Expectation Map
+### Anna & John & Maria
+- Changes to the phrases so all start the same way
+
 ## Gerenal changes
 - All categorizations were removed
 - All expectations from **Say & Do** categories were rewritten to match the syntax of the other categories' statements
